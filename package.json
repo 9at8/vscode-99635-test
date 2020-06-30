@@ -19,7 +19,88 @@
 				"command": "object-settings.helloWorld",
 				"title": "Hello World"
 			}
-		]
+		],
+		"configuration": {
+			"properties": {
+				"object-settings.staticObject": {
+					"type": "object",
+					"description": "Once you add all possible keys, the add button should disappear. Properties that have a default should not be deletable.",
+					"default": {
+						"aString": "I am a string"
+					},
+					"properties": {
+						"aString": {
+							"type": "string",
+							"description": "String property."
+						},
+						"anEnum": {
+							"type": "string",
+							"description": "Enum property",
+							"enum": ["A", "B", "C"],
+							"enumDescriptions": [
+								"A description.",
+								"B description",
+								"C description."
+							],
+							"default": "B"
+						},
+						"aBoolean": {
+							"type": "boolean",
+							"description": "Boolean property."
+						}
+					}
+				},
+				"object-settings.dynamicObject": {
+					"type": "object",
+					"description": "Keys matching '/st+r/' will have string values, '/enu+m/' will have enum values. Everything should will be a boolean.",
+					"patternProperties": {
+						"st+r": {
+							"type": "string",
+							"description": "String property."
+						},
+						"enu+m": {
+							"type": "string",
+							"description": "Enum property",
+							"enum": ["none", "information", "warn", "error"]
+						}
+					},
+					"additionalProperties": {
+						"type": "boolean",
+						"description": "Boolean property"
+					}
+				},
+				"object-settings.allBooleansDontWork1": {
+					"type": "object",
+					"additionalProperties": {
+						"type": "boolean",
+						"description": "Boolean property"
+					}
+				},
+				"object-settings.allBooleansDontWork2": {
+					"type": "object",
+					"properties": {
+						"hello": {
+							"type": "boolean",
+							"description": "Boolean property"
+						}
+					},
+					"additionalProperties": {
+						"type": "boolean",
+						"description": "Boolean property"
+					}
+				},
+				"object-settings.additionalPropertiesTrueDoesNotWork": {
+					"type": "object",
+					"description": "If additional properties is true, items of any type can be added to it. Object render should not work.",
+					"additionalProperties": true
+				},
+				"object-settings.emptyObjectsDontWork": {
+					"type": "object",
+					"description": "This has no properties and nothing can be added to it. So object renderer should not render this.",
+					"additionalProperties": false
+				}
+			}
+		}
 	},
 	"scripts": {
 		"vscode:prepublish": "npm run compile",
